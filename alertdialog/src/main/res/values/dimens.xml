@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="alertMessageTextSize">14sp</dimen>
+    <dimen name="alertMessageMargin">36dp</dimen>
+    <dimen name="alertClosePadding">5dp</dimen>
+    <dimen name="alertCloseSize">36dp</dimen>
+    <dimen name="buttonTextSize">14sp</dimen>
+    <dimen name="alertBackgroundRadius">3dp</dimen>
+    <dimen name="alertBackgroundStroke">1dp</dimen>
+
+</resources>

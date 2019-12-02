@@ -1,0 +1,12 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners android:radius="@dimen/alertBackgroundRadius" />
+
+    <solid android:color="@color/alertBackgroundColor" />
+
+    <stroke
+        android:width="@dimen/alertBackgroundStroke"
+        android:color="@color/alertStrokeColor" />
+
+</shape>
