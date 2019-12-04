@@ -154,9 +154,6 @@ public class AlertDialog extends DialogFragment {
             if (closeDrawable == null) {
                 closeDrawable = getResources().getDrawable(R.drawable.ic_close);
             }
-            if (closeTintColorRes == 0) {
-                closeTintColorRes = R.color.alertCloseTintColor;
-            }
         }
         if (font == null) {
             if (getActivity() != null) {
@@ -222,8 +219,10 @@ public class AlertDialog extends DialogFragment {
                     dismiss();
                 }
             });
-            if (getContext() != null) {
-                btnClose.setColorFilter(ContextCompat.getColor(getContext(), closeTintColorRes), android.graphics.PorterDuff.Mode.SRC_IN);
+            if (closeTintColorRes != 0) {
+                if (getContext() != null) {
+                    btnClose.setColorFilter(ContextCompat.getColor(getContext(), closeTintColorRes), android.graphics.PorterDuff.Mode.SRC_IN);
+                }
             }
             btnClose.setImageDrawable(closeDrawable);
             btnClose.setVisibility(View.VISIBLE);
