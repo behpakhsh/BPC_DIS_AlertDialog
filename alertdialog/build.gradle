@@ -35,6 +35,7 @@ dependencies {
     implementation 'com.github.behpakhsh:BPC_DIS_Utilities:1.1.2'
     implementation 'com.github.behpakhsh:BPC_DIS_RecyclerUtilities:1.0.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.github.behpakhsh:BPC_DIS_DrawableButton:1.1.1'
+    implementation 'com.github.behpakhsh:BPC_DIS_DrawableButton:1.1.2'
+    implementation 'com.github.behpakhsh:BPC_DIS_Network:1.0.0'
 
 }

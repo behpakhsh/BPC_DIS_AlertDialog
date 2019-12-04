@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="bpc.dis.alertdialog" />
+<manifest package="bpc.dis.alertdialog" />

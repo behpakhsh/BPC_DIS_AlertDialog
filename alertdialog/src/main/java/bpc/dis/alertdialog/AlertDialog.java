@@ -1,9 +1,11 @@
 package bpc.dis.alertdialog;
 
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,8 @@ import bpc.dis.recyclerutilities.SpaceItemDecoration.SpaceItemDecoration;
 import bpc.dis.utilities.DialogSizeHelper.DialogSizeHelper;
 import bpc.dis.utilities.MeasureHelper.MeasureHelper;
 import bpc.dis.utilities.TextSizeHelper.TextSizeHelper;
+import network.bpc.bpc_dis_network.INetworkChangedListener;
+import network.bpc.bpc_dis_network.NetworkChangeReceiver;
 
 public class AlertDialog extends DialogFragment {
 
@@ -51,6 +55,9 @@ public class AlertDialog extends DialogFragment {
     private Typeface font;
     private float buttonMargin;
     private List<AlertButton> alertButtons;
+    private boolean networkReceiverIsEnable;
+    private INetworkChangedListener iNetworkChangedListener;
+    private NetworkChangeReceiver networkChangeReceiver;
 
     @NonNull
     @Override
@@ -89,7 +96,41 @@ public class AlertDialog extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        registerNetworkChangeReceiver();
         DialogSizeHelper.setDialogSize(getDialog(), getActivity(), width, height);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unRegisterNetworkChangeReceiver();
+    }
+
+    private void registerNetworkChangeReceiver() {
+        if (networkReceiverIsEnable) {
+            if (networkChangeReceiver == null) {
+                networkChangeReceiver = new NetworkChangeReceiver(new INetworkChangedListener() {
+                    @Override
+                    public void onNetworkStateChanged(boolean isOnline) {
+                        iNetworkChangedListener.onNetworkStateChanged(isOnline);
+                    }
+                });
+            }
+            if (getActivity() != null) {
+                getActivity().registerReceiver(networkChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+            }
+        }
+    }
+
+    private void unRegisterNetworkChangeReceiver() {
+        if (networkReceiverIsEnable) {
+            if (networkChangeReceiver == null) {
+                return;
+            }
+            if (getActivity() != null) {
+                getActivity().unregisterReceiver(networkChangeReceiver);
+            }
+        }
     }
 
     private void initValues() {
@@ -204,6 +245,8 @@ public class AlertDialog extends DialogFragment {
         private List<AlertButton> alertButtons = null;
         private int maxRowButton = 3;
         private float buttonMargin = 0f;
+        private boolean networkReceiverIsEnable = false;
+        private INetworkChangedListener iNetworkChangedListener = null;
 
         public Builder setAlertCloseClickListener(AlertCloseListener alertCloseListener) {
             this.alertCloseListener = alertCloseListener;
@@ -285,6 +328,16 @@ public class AlertDialog extends DialogFragment {
             return this;
         }
 
+        public Builder setNetworkReceiverEnable(boolean networkReceiverIsEnable) {
+            this.networkReceiverIsEnable = networkReceiverIsEnable;
+            return this;
+        }
+
+        public Builder setNetworkChangedListener(INetworkChangedListener iNetworkChangedListener) {
+            this.iNetworkChangedListener = iNetworkChangedListener;
+            return this;
+        }
+
         public AlertDialog build() {
             AlertDialog alertDialog = new AlertDialog();
             alertDialog.setCancelable(cancelable);
@@ -303,6 +356,8 @@ public class AlertDialog extends DialogFragment {
             alertDialog.alertButtons = alertButtons;
             alertDialog.maxRowButton = maxRowButton;
             alertDialog.buttonMargin = buttonMargin;
+            alertDialog.networkReceiverIsEnable = networkReceiverIsEnable;
+            alertDialog.iNetworkChangedListener = iNetworkChangedListener;
             return alertDialog;
         }
 
