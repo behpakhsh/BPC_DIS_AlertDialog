@@ -200,7 +200,7 @@ public class AlertDialog extends DialogFragment {
                     rvButtons.addItemDecoration(new SpaceItemDecoration(space));
                 }
             }
-            ButtonAdapter buttonAdapter = new ButtonAdapter(getContext(), alertButtons, font, alertClickListener);
+            ButtonAdapter buttonAdapter = new ButtonAdapter(getContext(), alertButtons, font, alertClickListener, this);
             if (alertButtons.size() <= maxRowButton) {
                 rvButtons.setLayoutManager(new GridLayoutManager(getContext(), alertButtons.size()));
             } else {

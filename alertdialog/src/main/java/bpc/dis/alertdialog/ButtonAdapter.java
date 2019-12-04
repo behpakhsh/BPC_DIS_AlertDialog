@@ -20,12 +20,14 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.MyViewHold
     private Context context;
     private Typeface font;
     private AlertClickListener alertClickListener;
+    private AlertDialog alertDialog;
 
-    ButtonAdapter(Context context, List<AlertButton> alertButtons, Typeface font, AlertClickListener alertClickListener) {
+    ButtonAdapter(Context context, List<AlertButton> alertButtons, Typeface font, AlertClickListener alertClickListener, AlertDialog alertDialog) {
         this.alertButtons = alertButtons;
         this.context = context;
         this.font = font;
         this.alertClickListener = alertClickListener;
+        this.alertDialog = alertDialog;
     }
 
     @NonNull
@@ -55,6 +57,7 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.MyViewHold
                 if (alertButton.getAlertClickListener() != null) {
                     alertButton.getAlertClickListener().onClick(alertButton.getTag());
                 }
+                alertDialog.dismiss();
             }
         });
     }
