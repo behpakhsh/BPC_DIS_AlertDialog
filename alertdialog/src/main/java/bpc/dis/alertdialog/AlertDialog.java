@@ -56,7 +56,7 @@ public class AlertDialog extends DialogFragment {
     private float buttonMargin;
     private List<AlertButton> alertButtons;
     private boolean networkReceiverIsEnable;
-    private INetworkChangedListener iNetworkChangedListener;
+    private NetworkReceiverListener networkReceiverListener;
     private NetworkChangeReceiver networkChangeReceiver;
 
     @NonNull
@@ -112,7 +112,7 @@ public class AlertDialog extends DialogFragment {
                 networkChangeReceiver = new NetworkChangeReceiver(new INetworkChangedListener() {
                     @Override
                     public void onNetworkStateChanged(boolean isOnline) {
-                        iNetworkChangedListener.onNetworkStateChanged(isOnline);
+                        networkReceiverListener.onNetworkChange(AlertDialog.this);
                     }
                 });
             }
@@ -246,7 +246,7 @@ public class AlertDialog extends DialogFragment {
         private int maxRowButton = 3;
         private float buttonMargin = 0f;
         private boolean networkReceiverIsEnable = false;
-        private INetworkChangedListener iNetworkChangedListener = null;
+        private NetworkReceiverListener networkReceiverListener = null;
 
         public Builder setAlertCloseClickListener(AlertCloseListener alertCloseListener) {
             this.alertCloseListener = alertCloseListener;
@@ -333,8 +333,8 @@ public class AlertDialog extends DialogFragment {
             return this;
         }
 
-        public Builder setNetworkChangedListener(INetworkChangedListener iNetworkChangedListener) {
-            this.iNetworkChangedListener = iNetworkChangedListener;
+        public Builder setNetworkChangedListener(NetworkReceiverListener networkReceiverListener) {
+            this.networkReceiverListener = networkReceiverListener;
             return this;
         }
 
@@ -357,7 +357,7 @@ public class AlertDialog extends DialogFragment {
             alertDialog.maxRowButton = maxRowButton;
             alertDialog.buttonMargin = buttonMargin;
             alertDialog.networkReceiverIsEnable = networkReceiverIsEnable;
-            alertDialog.iNetworkChangedListener = iNetworkChangedListener;
+            alertDialog.networkReceiverListener = networkReceiverListener;
             return alertDialog;
         }
 
