@@ -58,6 +58,7 @@ public class AlertDialog extends DialogFragment {
     private boolean networkReceiverIsEnable;
     private NetworkReceiverListener networkReceiverListener;
     private NetworkChangeReceiver networkChangeReceiver;
+    private boolean isFirstRun = true;
 
     @NonNull
     @Override
@@ -112,7 +113,10 @@ public class AlertDialog extends DialogFragment {
                 networkChangeReceiver = new NetworkChangeReceiver(new INetworkChangedListener() {
                     @Override
                     public void onNetworkStateChanged(boolean isOnline) {
-                        networkReceiverListener.onNetworkChange(AlertDialog.this);
+                        if (isFirstRun) {
+                            networkReceiverListener.onNetworkChange(AlertDialog.this);
+                        }
+                        isFirstRun = false;
                     }
                 });
             }
