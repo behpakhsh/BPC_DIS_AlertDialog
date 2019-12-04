@@ -114,9 +114,10 @@ public class AlertDialog extends DialogFragment {
                     @Override
                     public void onNetworkStateChanged(boolean isOnline) {
                         if (isFirstRun) {
-                            networkReceiverListener.onNetworkChange(AlertDialog.this);
+                            isFirstRun = false;
+                            return;
                         }
-                        isFirstRun = false;
+                        networkReceiverListener.onNetworkChange(AlertDialog.this);
                     }
                 });
             }
@@ -337,7 +338,7 @@ public class AlertDialog extends DialogFragment {
             return this;
         }
 
-        public Builder setNetworkChangedListener(NetworkReceiverListener networkReceiverListener) {
+        public Builder setNetworkReceiverListener(NetworkReceiverListener networkReceiverListener) {
             this.networkReceiverListener = networkReceiverListener;
             return this;
         }
