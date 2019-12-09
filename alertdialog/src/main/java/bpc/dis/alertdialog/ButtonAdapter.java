@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import bpc.dis.drawablebutton.DisDrawableButton;
 import bpc.dis.utilities.TextSizeHelper.TextSizeHelper;
 
 public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.MyViewHolder> {
@@ -41,12 +41,12 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.MyViewHold
         final AlertButton alertButton = alertButtons.get(listPosition);
         holder.btnDialog.setText(alertButton.getButtonText());
         holder.btnDialog.setTypeface(font);
-        holder.btnDialog.setBackgroundResource(alertButton.getButtonBackgroundRes());
+        holder.btnDialog.setBackgroundDrawable(alertButton.getButtonBackgroundRes());
         if (alertButton.getButtonTextColor() != 0) {
             holder.btnDialog.setTextColor(alertButton.getButtonTextColor());
         }
         if (alertButton.getButtonTextSize() != 0) {
-            TextSizeHelper.changeTextSizeWithDipUnit(context, holder.btnDialog, alertButton.getButtonTextSize());
+            TextSizeHelper.changeTextSizeWithDipUnit(context, holder.btnDialog.getTextView(), alertButton.getButtonTextSize());
         }
         holder.btnDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.MyViewHold
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        AppCompatButton btnDialog;
+        DisDrawableButton btnDialog;
 
         MyViewHolder(View itemView) {
             super(itemView);
