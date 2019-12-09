@@ -58,6 +58,7 @@ public class AlertDialog extends DialogFragment {
     private boolean networkReceiverIsEnable;
     private NetworkReceiverListener networkReceiverListener;
     private NetworkChangeReceiver networkChangeReceiver;
+    private boolean animationEnable;
     private boolean isFirstRun = true;
 
     @NonNull
@@ -89,9 +90,13 @@ public class AlertDialog extends DialogFragment {
     @Override
     public void onActivityCreated(Bundle arg0) {
         super.onActivityCreated(arg0);
-        if (getDialog() != null)
-            if (getDialog().getWindow() != null)
-                getDialog().getWindow().getAttributes().windowAnimations = R.style.alertAnimation;
+        if (animationEnable) {
+            if (getDialog() != null) {
+                if (getDialog().getWindow() != null) {
+                    getDialog().getWindow().getAttributes().windowAnimations = R.style.alertAnimation;
+                }
+            }
+        }
     }
 
     @Override
@@ -251,6 +256,7 @@ public class AlertDialog extends DialogFragment {
         private float buttonMargin = 0f;
         private boolean networkReceiverIsEnable = false;
         private NetworkReceiverListener networkReceiverListener = null;
+        private boolean animationEnable = false;
 
         public Builder setAlertCloseClickListener(AlertCloseListener alertCloseListener) {
             this.alertCloseListener = alertCloseListener;
@@ -342,6 +348,11 @@ public class AlertDialog extends DialogFragment {
             return this;
         }
 
+        public Builder setAnimationEnable(boolean animationEnable) {
+            this.animationEnable = animationEnable;
+            return this;
+        }
+
         public AlertDialog build() {
             AlertDialog alertDialog = new AlertDialog();
             alertDialog.setCancelable(cancelable);
@@ -362,6 +373,7 @@ public class AlertDialog extends DialogFragment {
             alertDialog.buttonMargin = buttonMargin;
             alertDialog.networkReceiverIsEnable = networkReceiverIsEnable;
             alertDialog.networkReceiverListener = networkReceiverListener;
+            alertDialog.animationEnable = animationEnable;
             return alertDialog;
         }
 
