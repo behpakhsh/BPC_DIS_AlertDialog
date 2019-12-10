@@ -41,7 +41,7 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.MyViewHold
         final AlertButton alertButton = alertButtons.get(listPosition);
         holder.btnDialog.setText(alertButton.getButtonText());
         holder.btnDialog.setTypeface(font);
-        holder.btnDialog.setBackgroundDrawable(alertButton.getButtonBackgroundRes());
+        holder.btnDialog.setBackgroundResource(alertButton.getButtonBackgroundRes());
         if (alertButton.getButtonTextColor() != 0) {
             holder.btnDialog.setTextColor(alertButton.getButtonTextColor());
         }
