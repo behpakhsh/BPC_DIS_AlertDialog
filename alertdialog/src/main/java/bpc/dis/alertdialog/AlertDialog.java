@@ -48,7 +48,9 @@ public class AlertDialog extends DialogFragment {
     private String messageText;
     private float messageTextSize;
     private int messageTextColor;
+    @Deprecated
     private Drawable closeDrawable;
+    private int closeDrawableRes;
     private int closeTintColorRes;
     private int maxRowButton;
     private boolean closeEnable;
@@ -229,7 +231,7 @@ public class AlertDialog extends DialogFragment {
                     btnClose.setColorFilter(ContextCompat.getColor(getContext(), closeTintColorRes), android.graphics.PorterDuff.Mode.SRC_IN);
                 }
             }
-            btnClose.setImageDrawable(closeDrawable);
+            btnClose.setImageResource(closeDrawableRes);
             btnClose.setVisibility(View.VISIBLE);
         } else {
             btnClose.setVisibility(View.GONE);
@@ -246,7 +248,9 @@ public class AlertDialog extends DialogFragment {
         private String messageText = null;
         private float messageTextSize = 0;
         private int messageTextColor = 0;
+        @Deprecated
         private Drawable closeDrawable = null;
+        private int closeDrawableRes = 0;
         private int closeTintColorRes = 0;
         private boolean closeEnable = true;
         private boolean cancelable = true;
@@ -298,8 +302,19 @@ public class AlertDialog extends DialogFragment {
             return this;
         }
 
+        /**
+         * @param closeDrawable drawable
+         * @desc set vector drawable  has crash on api pre lollipop
+         * @desc please use method setCloseDrawableRes
+         */
+        @Deprecated
         public Builder setCloseDrawable(Drawable closeDrawable) {
             this.closeDrawable = closeDrawable;
+            return this;
+        }
+
+        public Builder setCloseDrawableRes(int closeDrawableRes) {
+            this.closeDrawableRes = closeDrawableRes;
             return this;
         }
 
@@ -365,6 +380,7 @@ public class AlertDialog extends DialogFragment {
             alertDialog.messageTextSize = messageTextSize;
             alertDialog.messageTextColor = messageTextColor;
             alertDialog.closeDrawable = closeDrawable;
+            alertDialog.closeDrawableRes = closeDrawableRes;
             alertDialog.closeTintColorRes = closeTintColorRes;
             alertDialog.closeEnable = closeEnable;
             alertDialog.font = font;

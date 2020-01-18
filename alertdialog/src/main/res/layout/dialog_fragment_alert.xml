@@ -34,13 +34,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_buttons"
         android:layout_width="0dp"
-        android:overScrollMode="never"
-        android:layoutDirection="rtl"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/adapter_button"
+        android:layoutDirection="rtl"
+        android:overScrollMode="never"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/adapter_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
