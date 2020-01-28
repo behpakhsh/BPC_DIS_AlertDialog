@@ -30,15 +30,15 @@ import bpc.dis.recyclerutilities.SpaceItemDecoration.SpaceItemDecoration;
 import bpc.dis.utilities.DialogSizeHelper.DialogSizeHelper;
 import bpc.dis.utilities.MeasureHelper.MeasureHelper;
 import bpc.dis.utilities.TextSizeHelper.TextSizeHelper;
-import network.bpc.bpc_dis_network.INetworkChangedListener;
+import network.bpc.bpc_dis_network.NetworkChangeListener;
 import network.bpc.bpc_dis_network.NetworkChangeReceiver;
 
 public class AlertDialog extends DialogFragment {
 
+    private RecyclerView rvButtons;
     private ConstraintLayout clAlertDialog;
     private AppCompatImageButton btnClose;
     private AppCompatTextView txtMessage;
-    private RecyclerView rvButtons;
 
     private AlertCloseListener alertCloseListener;
     private AlertClickListener alertClickListener;
@@ -48,7 +48,6 @@ public class AlertDialog extends DialogFragment {
     private String messageText;
     private float messageTextSize;
     private int messageTextColor;
-    @Deprecated
     private Drawable closeDrawable;
     private int closeDrawableRes;
     private int closeTintColorRes;
@@ -105,19 +104,29 @@ public class AlertDialog extends DialogFragment {
     public void onResume() {
         super.onResume();
         registerNetworkChangeReceiver();
-        DialogSizeHelper.setDialogSize(getDialog(), getActivity(), width, height);
+        DialogSizeHelper.setDialogSize(getDialog(), getContext(), width, height);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         unRegisterNetworkChangeReceiver();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        alertButtons = null;
+        alertCloseListener = null;
+        alertClickListener = null;
+        networkReceiverListener = null;
+        networkChangeReceiver = null;
     }
 
     private void registerNetworkChangeReceiver() {
         if (networkReceiverIsEnable) {
             if (networkChangeReceiver == null) {
-                networkChangeReceiver = new NetworkChangeReceiver(new INetworkChangedListener() {
+                networkChangeReceiver = new NetworkChangeReceiver(new NetworkChangeListener() {
                     @Override
                     public void onNetworkStateChanged(boolean isOnline) {
                         if (isFirstRun) {
@@ -248,7 +257,6 @@ public class AlertDialog extends DialogFragment {
         private String messageText = null;
         private float messageTextSize = 0;
         private int messageTextColor = 0;
-        @Deprecated
         private Drawable closeDrawable = null;
         private int closeDrawableRes = 0;
         private int closeTintColorRes = 0;
