@@ -33,6 +33,9 @@ public class ButtonAdapter extends RecyclerView.Adapter<ButtonAdapter.MyViewHold
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (alertDialog.getAlertType() == AlertType.PERMISSION_ALERT) {
+            return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.adapter_button_permission, parent, false));
+        }
         return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.adapter_button, parent, false));
     }
 

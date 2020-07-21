@@ -261,6 +261,10 @@ public class AlertDialog extends DialogFragment {
         }
     }
 
+    public AlertType getAlertType() {
+        return alertType;
+    }
+
     public static class Builder {
 
         private AlertCloseListener alertCloseListener = null;
