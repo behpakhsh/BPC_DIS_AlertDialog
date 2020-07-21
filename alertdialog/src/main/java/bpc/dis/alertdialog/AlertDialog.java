@@ -81,7 +81,7 @@ public class AlertDialog extends DialogFragment {
                 view = inflater.inflate(R.layout.dialog_fragment_alert, container, false);
                 break;
             case PERMISSION_ALERT:
-                view = inflater.inflate(R.layout.dialog_fragment_alert, container, false);
+                view = inflater.inflate(R.layout.dialog_fragment_permision_alert, container, false);
                 break;
         }
         if (view != null) {
