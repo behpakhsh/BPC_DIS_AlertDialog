@@ -428,6 +428,7 @@ public class AlertDialog extends DialogFragment {
             alertDialog.networkReceiverIsEnable = networkReceiverIsEnable;
             alertDialog.networkReceiverListener = networkReceiverListener;
             alertDialog.animationEnable = animationEnable;
+            alertDialog.alertType = alertType;
             return alertDialog;
         }
 
