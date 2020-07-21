@@ -61,6 +61,7 @@ public class AlertDialog extends DialogFragment {
     private NetworkChangeReceiver networkChangeReceiver;
     private boolean animationEnable;
     private boolean isFirstRun = true;
+    private AlertType alertType;
 
     @NonNull
     @Override
@@ -74,16 +75,26 @@ public class AlertDialog extends DialogFragment {
 
         initValues();
 
-        View view = inflater.inflate(R.layout.dialog_fragment_alert, container, false);
-        btnClose = view.findViewById(R.id.btn_close);
-        txtMessage = view.findViewById(R.id.txt_message);
-        rvButtons = view.findViewById(R.id.rv_buttons);
-        clAlertDialog = view.findViewById(R.id.cl_alert_dialog);
+        View view = null;
+        switch (alertType) {
+            case ALERT:
+                view = inflater.inflate(R.layout.dialog_fragment_alert, container, false);
+                break;
+            case PERMISSION_ALERT:
+                view = inflater.inflate(R.layout.dialog_fragment_alert, container, false);
+                break;
+        }
+        if (view != null) {
+            btnClose = view.findViewById(R.id.btn_close);
+            txtMessage = view.findViewById(R.id.txt_message);
+            rvButtons = view.findViewById(R.id.rv_buttons);
+            clAlertDialog = view.findViewById(R.id.cl_alert_dialog);
 
-        setDialogAttribute();
-        setCloseAttribute();
-        setMessageAttribute();
-        setButtonAttribute();
+            setDialogAttribute();
+            setCloseAttribute();
+            setMessageAttribute();
+            setButtonAttribute();
+        }
 
         return view;
     }
@@ -179,6 +190,9 @@ public class AlertDialog extends DialogFragment {
         if (alertButtons == null) {
             alertButtons = new ArrayList<>();
         }
+        if (alertType == null) {
+            alertType = AlertType.ALERT;
+        }
     }
 
     public void show(FragmentManager fragmentManager) {
@@ -269,6 +283,7 @@ public class AlertDialog extends DialogFragment {
         private boolean networkReceiverIsEnable = false;
         private NetworkReceiverListener networkReceiverListener = null;
         private boolean animationEnable = false;
+        private AlertType alertType = AlertType.ALERT;
 
         public Builder setAlertCloseClickListener(AlertCloseListener alertCloseListener) {
             this.alertCloseListener = alertCloseListener;
@@ -373,6 +388,21 @@ public class AlertDialog extends DialogFragment {
 
         public Builder setAnimationEnable(boolean animationEnable) {
             this.animationEnable = animationEnable;
+            return this;
+        }
+
+        public Builder setAlertCloseListener(AlertCloseListener alertCloseListener) {
+            this.alertCloseListener = alertCloseListener;
+            return this;
+        }
+
+        public Builder setNetworkReceiverIsEnable(boolean networkReceiverIsEnable) {
+            this.networkReceiverIsEnable = networkReceiverIsEnable;
+            return this;
+        }
+
+        public Builder setAlertType(AlertType alertType) {
+            this.alertType = alertType;
             return this;
         }
 
